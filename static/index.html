@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ClearCode AI | Python Code Analyzer</title>
+    <meta
+        name="description"
+        content="Understand Python bugs, find likely causes, and get AI-powered fixes."
+    >
+
+    <!-- CodeMirror editor styling -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+    >
+
+    <!-- Our website styling will go here later -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <!-- Website header -->
+    <header class="site-header">
+        <div class="container header-content">
+            <a class="logo" href="/">
+                <span class="logo-icon">&lt;/&gt;</span>
+                ClearCode AI
+            </a>
+
+            <span class="header-label">AI Python Assistant</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Introduction section -->
+        <section class="hero">
+            <span class="eyebrow">YOUR PYTHON DEBUGGING PARTNER</span>
+
+            <h1>Find the bug.<br><span>Understand the fix.</span></h1>
+
+            <p class="hero-description">
+                Paste your Python code and let AI explain potential bugs,
+                suggest improvements, and help you write better code.
+            </p>
+        </section>
+
+        <!-- Python editor section -->
+        <section class="workspace">
+            <div class="section-heading">
+                <div>
+                    <h2>Analyze your code</h2>
+                    <p>Paste your Python code below to get started.</p>
+                </div>
+
+                <span class="language-badge">Python</span>
+            </div>
+
+            <div class="editor-wrapper">
+                <textarea id="codeInput">numbers = [1, 2, 3]
+print(numbers[5])</textarea>
+            </div>
+
+            <div class="editor-footer">
+                <span class="editor-hint">Your code is analyzed as text, not executed.</span>
+
+                <button id="analyzeBtn" type="button">
+                    Analyze Code
+                    <span aria-hidden="true">→</span>
+                </button>
+            </div>
+
+            <p id="statusMessage" class="status-message" role="status"></p>
+        </section>
+
+        <!-- AI results section -->
+        <section id="resultsSection" class="results-section" hidden>
+            <div class="section-heading">
+                <div>
+                    <h2>Analysis results</h2>
+                    <p>Here's what ClearCode AI found.</p>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <h3>What the error means</h3>
+                <p id="errorMeaning"></p>
+            </div>
+
+            <div class="result-card">
+                <h3>Likely cause</h3>
+                <p id="likelyCause"></p>
+            </div>
+
+            <div class="result-card">
+                <h3>How to fix it</h3>
+                <ol id="fixSteps"></ol>
+            </div>
+
+            <div class="result-card">
+                <h3>Corrected code</h3>
+                <pre><code id="correctedCode"></code></pre>
+                <button id="copyCodeBtn" type="button">Copy corrected code</button>
+            </div>
+
+            <div class="result-card">
+                <h3>Prevention tip</h3>
+                <p id="preventionTip"></p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>Built with FastAPI and Gemini AI · Made for learning Python</p>
+        </footer>
+    </main>
+
+    <!-- CodeMirror library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+
+    <!-- Python syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+
+    <!-- Initialize the Python editor -->
+    <script>
+        const codeEditor = CodeMirror.fromTextArea(
+            document.getElementById("codeInput"),
+            {
+                mode: "python",
+                theme: "default",
+                lineNumbers: true,
+                indentUnit: 4,
+                tabSize: 4,
+                indentWithTabs: false,
+                lineWrapping: true,
+                viewportMargin: Infinity
+            }
+        );
+
+        // Allow our future JavaScript file to access the editor.
+        window.codeEditor = codeEditor;
+    </script>
+
+    <!-- We'll create this file in a later step. -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
