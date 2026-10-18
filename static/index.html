@@ -62,9 +62,7 @@
             </div>
 
             <div class="editor-wrapper">
-                <textarea id="codeInput" placeholder="Paste your Python code here... Ask AI to analyze, fix bugs, or optimize.">
-                    
-                </textarea>
+                <textarea id="codeInput" placeholder="Paste your Python code here... Ask AI to analyze, fix bugs, or optimize."></textarea>
             </div>
 
             <div class="editor-footer">
@@ -123,6 +121,8 @@
 
     <!-- CodeMirror library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/display/placeholder.js"></script>
+
 
     <!-- Python syntax highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
@@ -139,7 +139,8 @@
                 tabSize: 4,
                 indentWithTabs: false,
                 lineWrapping: true,
-                viewportMargin: Infinity
+                viewportMargin: Infinity,
+                placeholder: "Paste your Python code here... Ask AI to analyze, fix bugs, or optimize."
             }
         );
 
