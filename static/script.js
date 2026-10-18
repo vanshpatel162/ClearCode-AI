@@ -10,13 +10,14 @@ const correctedCode = document.getElementById("correctedCode");
 const preventionTip = document.getElementById("preventionTip");
 const copyCodeBtn = document.getElementById("copyCodeBtn");
 
-// Apply a different color to each result card.
+// Add styling classes to the analysis result cards.
 errorMeaning.closest(".result-card").classList.add("result-meaning");
 likelyCause.closest(".result-card").classList.add("result-cause");
 fixSteps.closest(".result-card").classList.add("result-fixes");
 correctedCode.closest(".result-card").classList.add("result-code");
 preventionTip.closest(".result-card").classList.add("result-tip");
 
+// Display status and feedback messages.
 function showStatus(message, type = "") {
     statusMessage.textContent = message;
     statusMessage.className = "status-message";
@@ -26,15 +27,17 @@ function showStatus(message, type = "") {
     }
 }
 
+// Update the Analyze button during requests.
 function setLoading(loading) {
     analyzeBtn.disabled = loading;
     analyzeBtn.classList.toggle("is-loading", loading);
 
     analyzeBtn.innerHTML = loading
         ? "Analyzing your code..."
-        : 'Analyze Code <span aria-hidden="true">→</span>';
+        : '<span class="analyze-button-label">Analyze Code</span><span class="button-arrow" aria-hidden="true">→</span>';
 }
 
+// Check whether the AI response contains the required fields.
 function isValidAnalysis(analysis) {
     return (
         analysis &&
@@ -51,6 +54,7 @@ function isValidAnalysis(analysis) {
     );
 }
 
+// Analyze the Python code using the existing FastAPI endpoint.
 analyzeBtn.addEventListener("click", async () => {
     const code = window.codeEditor.getValue().trim();
 
@@ -74,7 +78,7 @@ analyzeBtn.addEventListener("click", async () => {
             body: JSON.stringify({ code })
         });
 
-        // Handle cases where the server doesn't return valid JSON.
+        // Handle invalid JSON responses from the server.
         let data;
 
         try {
@@ -85,6 +89,7 @@ analyzeBtn.addEventListener("click", async () => {
             );
         }
 
+        // Display errors returned by the backend.
         if (!response.ok) {
             throw new Error(
                 typeof data.detail === "string"
@@ -93,6 +98,7 @@ analyzeBtn.addEventListener("click", async () => {
             );
         }
 
+        // Verify the AI response before displaying the results.
         if (data.success !== true || !isValidAnalysis(data.analysis)) {
             throw new Error(
                 "The AI response was incomplete. Please try again."
@@ -101,11 +107,13 @@ analyzeBtn.addEventListener("click", async () => {
 
         const analysis = data.analysis;
 
+        // Display the analysis.
         errorMeaning.textContent = analysis.error_meaning;
         likelyCause.textContent = analysis.likely_cause;
         preventionTip.textContent = analysis.prevention_tip;
         correctedCode.textContent = analysis.corrected_code;
 
+        // Display the suggested fix steps.
         fixSteps.replaceChildren();
 
         analysis.fix_steps.forEach(step => {
@@ -114,12 +122,15 @@ analyzeBtn.addEventListener("click", async () => {
             fixSteps.appendChild(item);
         });
 
+        // Reset the Copy button.
         copyCodeBtn.textContent = "Copy corrected code";
         copyCodeBtn.classList.remove("copied");
 
+        // Show the results and success message.
         resultsSection.hidden = false;
         showStatus("Analysis completed successfully.", "success");
 
+        // Smoothly scroll to the analysis results.
         resultsSection.scrollIntoView({
             behavior: "smooth",
             block: "start"
@@ -138,7 +149,7 @@ analyzeBtn.addEventListener("click", async () => {
     }
 });
 
-// Copy corrected code with success feedback.
+// Copy the corrected Python code.
 copyCodeBtn.addEventListener("click", async () => {
     const code = correctedCode.textContent;
 
