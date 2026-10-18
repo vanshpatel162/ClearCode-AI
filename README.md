@@ -2,20 +2,27 @@
 
 **An AI-powered Python error analyzer built with FastAPI and Google Gemini.**
 
-ClearCode AI helps Python learners understand errors, identify likely causes, and discover possible fixes with the help of AI. Simply paste your Python code into the editor and get an easy-to-understand analysis with corrected code and prevention tips.
+ClearCode AI helps Python learners understand errors, identify likely causes, and discover possible fixes with the help of AI. Paste your Python code into the editor and receive an easy-to-understand analysis, suggested corrected code, and prevention tips.
 
-## 🚀 Features
+## 🌐 Live Demo
 
-- **AI-Powered Error Analysis:** Understand Python errors in simple language.
-- **Likely Cause Detection:** Discover what might be causing an error.
-- **Fix Suggestions:** Receive step-by-step suggestions to fix issues.
-- **Corrected Code:** Get a suggested version of your code.
+**Try ClearCode AI:** [https://clearcode-ai.onrender.com/](https://clearcode-ai.onrender.com/)
+
+The application is deployed on Render and accessible directly through your browser.
+
+## ✨ Features
+
+- **AI-Powered Code Analysis:** Get explanations of potential Python errors in simple language.
+- **Error Meaning:** Understand what an error means.
+- **Likely Cause Detection:** Identify possible reasons behind an error.
+- **Step-by-Step Fixes:** Receive suggestions to help resolve issues.
+- **Corrected Code:** Get AI-generated corrected code suggestions.
 - **Prevention Tips:** Learn how to avoid similar errors in the future.
 - **Syntax-Highlighted Editor:** Write or paste Python code into the editor.
-- **Copy Code:** Copy the suggested corrected code easily.
-- **Input Validation:** Validate incoming API requests using Pydantic.
-- **Error Handling:** Return appropriate error responses when analysis fails.
-- **Automated Tests:** Test API endpoints and error-handling behavior.
+- **Copy Code:** Copy suggested corrected code with one click.
+- **Input Validation:** Validate incoming requests using Pydantic.
+- **Error Handling:** Handle invalid AI responses and service failures.
+- **Automated Testing:** Test API endpoints and error-handling behavior.
 
 ## 🛠️ Tech Stack
 
@@ -27,7 +34,7 @@ ClearCode AI helps Python learners understand errors, identify likely causes, an
 | Pydantic | Request and response validation |
 | HTML5 | Frontend structure |
 | CSS3 | Styling and responsive design |
-| JavaScript | Frontend interactions and API calls |
+| JavaScript | Frontend interactions and API requests |
 | CodeMirror | Syntax-highlighted code editor |
 | Pytest | Automated testing |
 | Render | Cloud deployment |
@@ -50,15 +57,15 @@ ClearCode-AI/
     └── script.js
 ```
 
-**File descriptions:**
+### File Descriptions
 
 - `main.py` — Creates the FastAPI application, serves the frontend, and defines API endpoints.
-- `ai_service.py` — Integrates the Google Gemini API for Python code analysis.
+- `ai_service.py` — Integrates Google Gemini for AI-powered code analysis.
 - `schemas.py` — Defines and validates request and response data using Pydantic.
 - `test_api.py` — Contains automated API tests.
-- `requirements.txt` — Lists the Python dependencies.
+- `requirements.txt` — Lists the Python dependencies required by the project.
 - `.env` — Stores local environment variables, including the Gemini API key.
-- `.gitignore` — Excludes sensitive files and unnecessary files from Git.
+- `.gitignore` — Excludes sensitive and unnecessary files from Git.
 - `static/index.html` — Defines the user interface.
 - `static/style.css` — Contains the application styling.
 - `static/script.js` — Handles frontend interactions and API requests.
@@ -67,40 +74,40 @@ ClearCode-AI/
 
 ### Prerequisites
 
-- Python 3.12 or a compatible Python version
+- Python 3.12 or another compatible Python version
 - Git
 - A Google Gemini API key
 - Visual Studio Code or another code editor
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/vanshpatel162/ClearCode-AI.git
 cd ClearCode-AI
 ```
 
-### 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
-**Windows:**
+For Windows PowerShell:
 
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks environment activation, use Command Prompt:
+If PowerShell blocks activation, use Command Prompt:
 
 ```bat
 venv\Scripts\activate.bat
 ```
 
-### 3. Install dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
+### 4. Configure Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -108,29 +115,31 @@ Create a `.env` file in the project root:
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-Replace the placeholder with your own API key.
+Replace the placeholder with your own Gemini API key.
 
-**Important:** Never upload your real `.env` file or expose your API key in frontend JavaScript, GitHub, screenshots, or public logs. Use environment variables in your deployment environment as well.
+**Security note:** Never upload your real `.env` file or expose your API key in frontend JavaScript, GitHub, screenshots, or public logs. Configure the key as an environment variable in Render as well.
 
-### 5. Run the application
+### 5. Run the Application Locally
 
 ```bash
 uvicorn main:app --reload
 ```
 
-Open the application in your browser:
+Open these URLs in your browser:
 
-- **Web app:** http://127.0.0.1:8000
+- **Web application:** http://127.0.0.1:8000
 - **Health check:** http://127.0.0.1:8000/health
-- **API documentation:** http://127.0.0.1:8000/docs
+- **Interactive API documentation:** http://127.0.0.1:8000/docs
 
-## 🔌 API Endpoint
+## 🔌 API Documentation
 
 ### Analyze Python Code
 
-`POST /api/analyze-code`
+**Endpoint:** `POST /api/analyze-code`
 
-**Request body:**
+This endpoint accepts Python code and returns an AI-generated analysis.
+
+#### Example Request
 
 ```json
 {
@@ -138,9 +147,7 @@ Open the application in your browser:
 }
 ```
 
-The API validates the submitted code, sends it to the AI service for analysis, validates the returned result, and provides the analysis to the frontend.
-
-**Successful response structure:**
+#### Example Response
 
 ```json
 {
@@ -158,11 +165,25 @@ The API validates the submitted code, sends it to the AI service for analysis, v
 }
 ```
 
-The example response above illustrates the expected structure; actual analysis depends on the submitted code and AI output.
+The response above illustrates the expected structure. Actual explanations and suggestions depend on the submitted code and AI output.
+
+### Health Check
+
+**Endpoint:** `GET /health`
+
+Used to check whether the API is responding.
+
+Example response:
+
+```json
+{
+  "status": "ok"
+}
+```
 
 ## 🧪 Running Tests
 
-Run the automated test suite:
+Run the automated test suite with:
 
 ```bash
 pytest -q
@@ -172,55 +193,69 @@ The current test suite contains six tests covering:
 
 1. Homepage response.
 2. Health-check endpoint.
-3. Successful code analysis using a mocked AI response.
+3. Successful analysis using a mocked AI response.
 4. Rejection of empty code.
 5. Rejection of missing code.
 6. Handling of AI service failures.
 
-The six tests passed in the development environment. Test results may vary after changes to the code or dependencies.
+**Development test result:** All six tests passed in the development environment. Test results may vary if the code or dependencies change.
 
-## ☁️ Deployment
+## ☁️ Deployment on Render
 
 ClearCode AI is deployed on Render.
 
 To deploy your own instance:
 
-1. Push the project to a GitHub repository.
-2. Create a new Web Service on Render and connect the repository.
-3. Configure the build command:
+1. Push your project to a GitHub repository.
+2. Create a Web Service on Render and connect your repository.
+3. Set the build command:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Configure the start command:
+4. Set the start command:
 
    ```bash
    uvicorn main:app --host 0.0.0.0 --port $PORT
    ```
 
-5. Add `GEMINI_API_KEY` in the Render environment variables.
-6. Deploy the application and test the homepage and API.
+5. Add `GEMINI_API_KEY` under your Render service's environment variables.
+6. Deploy the application.
+7. Test the live website and API endpoints.
 
-**Live demo:** Add your deployed Render URL here.
+**Live application:** [https://clearcode-ai.onrender.com/](https://clearcode-ai.onrender.com/)
 
 ## 🔒 Important Notes
 
 - Submitted Python code is analyzed as text and is not executed by the application.
 - AI-generated explanations and corrected code may not always be accurate. Review suggestions before using them.
 - Keep API keys and other secrets private.
-- Protect the public API and monitor your Gemini API usage and quota.
-- Do not submit sensitive or confidential source code to an external AI service unless you are authorized to do so.
+- Monitor Gemini API usage and quota.
+- Avoid submitting confidential or sensitive source code to an external AI service unless authorized.
+- The public API may be subject to usage limits imposed by the hosting provider or AI service.
 
 ## 🎯 Project Goal
 
-The goal of ClearCode AI is to make Python debugging easier for beginners while providing practical experience with backend development, API integration, data validation, frontend-backend communication, testing, and cloud deployment.
+ClearCode AI aims to make Python debugging easier for beginners while providing hands-on experience with:
+
+- Python backend development.
+- REST API development using FastAPI.
+- Generative AI integration.
+- Data validation using Pydantic.
+- Frontend and backend communication.
+- Automated testing with Pytest.
+- Environment variable management.
+- Cloud deployment using Render.
+- Version control using Git and GitHub.
 
 ## 👨‍💻 Author
 
 **Vansh Patel**
 
-- GitHub: [@vanshpatel162](https://github.com/vanshpatel162)
+- **GitHub:** [@vanshpatel162](https://github.com/vanshpatel162)
+- **Project Repository:** [ClearCode AI](https://github.com/vanshpatel162/ClearCode-AI)
+- **Live Demo:** [clearcode-ai.onrender.com](https://clearcode-ai.onrender.com/)
 
 ---
 
